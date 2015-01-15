@@ -12,8 +12,12 @@ namespace WpfApplication1
         private int hauteur, largeur;
         public static Case[][] map;
         public static int pas;
-        public Grille(int h, int l, int nbA, int nbB, int nbAgents, double kplus, double kmoins, int p)
+        public static double vitesse;
+
+        public static Random r = new Random();
+        public Grille(int h, int l, int nbA, int nbB, int nbAgents, double kplus, double kmoins, int p, double vit)
         {
+            vitesse = vit;
             map = new Case[l][];
             pas = p;
             for (int j = 0; j < l; j++)
@@ -67,9 +71,9 @@ namespace WpfApplication1
                 } while (map[(int)x][(int)y].contenu != null);
                 map[(int)x][(int)y].contenu = new Objet("B");
             }
+
             for (int i = 0; i < nbAgents; i++)
             {
-                Random r = new Random();
                 int? x = null;
                 int? y = null;
                 do
@@ -77,28 +81,69 @@ namespace WpfApplication1
                     x = r.Next() % l;
                     y = r.Next() % h;
                 } while (map[(int)x][(int)y].contenu != null);
-                map[(int)x][(int)y].contenu = new Agent((int)x, (int)y);
-                ((Agent)map[(int)x][(int)y].contenu).Run();
+                Agent a = new Agent((int)x, (int)y);
+                map[(int) x][(int) y].contenu = a;
+                a.Run();
             }
         }
 
         public static void bouger(int direction, Agent a) 
         {
             // 0 gauche, 1 haut, 2 droite, 3 bas
-            switch (direction)
+            try
             {
-                case 0:
-                    //gauche
-                    if ((a.x - pas) >= 0 && map[a.x-pas][a.y].contenu == null)
-                    {
-                        map[a.x - pas][a.y].contenu = a;
-                        map[a.x][a.y].contenu = null;
-                        a.x = a.x - pas;
-                    }
-                    break;
-                default:
-                    break;
+                switch (direction)
+                {
+                    case 0:
+                        //gauche
+                        if ((a.x - pas) >= 0 && map[a.x - pas][a.y].contenu == null)
+                        {
+
+                            map[a.x - pas][a.y].contenu = a;
+                            map[a.x][a.y].contenu = null;
+                            a.x = a.x - pas;
+                        }
+                        break;
+                    case 1:
+                        //gauche
+                        if ((a.y - pas) >= 0 && map[a.x][a.y-pas].contenu == null)
+                        {
+
+                            map[a.x][a.y-pas].contenu = a;
+                            map[a.x][a.y].contenu = null;
+                            a.y = a.y - pas;
+                        }
+                        break;
+                    case 2:
+                        //gauche
+                        if ((a.x + pas) < map.Length && map[a.x + pas][a.y].contenu == null)
+                        {
+
+                            map[a.x + pas][a.y].contenu = a;
+                            map[a.x][a.y].contenu = null;
+                            a.x = a.x + pas;
+                        }
+                        break;
+                    case 3:
+                        //gauche
+                        if ((a.y + pas) < map[a.x].Length && map[a.x][a.y + pas].contenu == null)
+                        {
+
+                            map[a.x][a.y + pas].contenu = a;
+                            map[a.x][a.y].contenu = null;
+                            a.y = a.y + pas;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            
         }
 
     }

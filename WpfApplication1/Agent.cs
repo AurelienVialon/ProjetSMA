@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using System.Windows.Threading;
 
 namespace WpfApplication1
 {
@@ -33,12 +34,13 @@ namespace WpfApplication1
         }
         public void boucle()
         {
-            
-                Random r = new Random();
-                int direction = r.Next()%4;
+            while (true)
+            {
                 
+                int direction =Grille.r.Next() % 4;
+
                 Grille.bouger(direction, this);
-                System.Threading.Thread.Sleep(500);
+                System.Threading.Thread.Sleep((int)(1000/Grille.vitesse));
             }
         }
     }
