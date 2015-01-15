@@ -22,16 +22,36 @@ namespace WpfApplication1
                     {
                         Content = value != null ? value.affichage() : "";
                         _contenu = value;
-                        if(value != null)
-                        Background =
-                            new SolidColorBrush(value.affichage() == "A"
-                                ? Colors.Blue
-                                : value.affichage() == "B"
-                                    ? Colors.Red
-                                    : value.affichage() == "Agent" ? Colors.Green : Colors.White);
+                        if (value != null)
+                        {
+                            Background =
+                                new SolidColorBrush(value.affichage() == "A"
+                                    ? Colors.Blue
+                                    : value.affichage() == "B"
+                                        ? Colors.Red
+                                        : value.affichage() == "Agent" || value.affichage() == "AgentA" ||
+                                          value.affichage() == "AgentB"
+                                            ? Colors.Green
+                                            : Colors.White);
+                            if (value.affichage() == "AgentA")
+                            {
+                                BorderBrush = new SolidColorBrush(Colors.Blue);
+                                BorderThickness = new Thickness(1);
+                            }
+                            else if (value.affichage() == "AgentA")
+                            {
+                                BorderBrush = new SolidColorBrush(Colors.Red);
+                                BorderThickness = new Thickness(1);
+                            }
+                            else
+                            {
+                                BorderBrush = null;
+                            }
+                        }
                         else
                         {
                             Background = new SolidColorBrush(Colors.White);
+                            BorderBrush = null;
                         }
                     }));
             }
