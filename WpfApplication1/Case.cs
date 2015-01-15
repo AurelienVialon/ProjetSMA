@@ -5,29 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace WpfApplication1
 {
     public class Case : Label
     {
-        public Entité _contenu;
         public Entité contenu
         {
-            get { return _contenu; }
-            set
-            {
-                Content = value.affichage();
-                _contenu = value;
-                Background = new SolidColorBrush(value.affichage() == "A" ? Colors.Blue : value.affichage() == "B" ? Colors.Red : value.affichage() == "Agent" ? Colors.Green : Colors.White);
-            }
+          
         }
 
         public Case()
         {
             //BorderBrush = new SolidColorBrush(Colors.Black);
             //BorderThickness = new Thickness(0.5);
-            
+            var binding = new Binding("contenu");
+            binding.Source = window1.ListBox;
         }
 
     }
