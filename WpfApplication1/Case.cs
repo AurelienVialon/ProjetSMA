@@ -21,9 +21,13 @@ namespace WpfApplication1
                     new Action(() =>
                     {
                         Content = value != null ? value.affichage() : "";
+                    }));
                         _contenu = value;
                         if (value != null)
                         {
+                            Dispatcher.Invoke(
+                    new Action(() =>
+                    {
                             Background =
                                 new SolidColorBrush(value.affichage() == "A"
                                     ? Colors.Blue
@@ -33,29 +37,48 @@ namespace WpfApplication1
                                           value.affichage() == "AgentB"
                                             ? Colors.Green
                                             : Colors.White);
+                    }));
                             if (value.affichage() == "AgentA")
                             {
+                                Dispatcher.Invoke(
+                    new Action(() =>
+                    {
                                 BorderBrush = new SolidColorBrush(Colors.Blue);
                                 BorderThickness = new Thickness(1);
+                    }));
                             }
                             else if (value.affichage() == "AgentA")
                             {
+                                Dispatcher.Invoke(
+                                new Action(() =>
+                    {
                                 BorderBrush = new SolidColorBrush(Colors.Red);
                                 BorderThickness = new Thickness(1);
+                        }));
                             }
                             else
                             {
+                                Dispatcher.Invoke(
+                    new Action(() =>
+                    {
                                 BorderBrush = null;
+                        }));
                             }
                         }
                         else
                         {
+                            Dispatcher.Invoke(
+                    new Action(() =>
+                    {
                             Background = new SolidColorBrush(Colors.White);
                             BorderBrush = null;
-                        }
                     }));
+                        }
             }
         }
+
+        public void majCouleurs()
+        { }
 
         public Case()
         {

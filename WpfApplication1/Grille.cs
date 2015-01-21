@@ -13,10 +13,12 @@ namespace WpfApplication1
         public static Case[][] map;
         public static int pas;
         public static double vitesse;
-
+        public static double kplus, kmoins;
         public static Random r = new Random();
-        public Grille(int h, int l, int nbA, int nbB, int nbAgents, double kplus, double kmoins, int p, double vit)
+        public Grille(int h, int l, int nbA, int nbB, int nbAgents, double kp, double km, int p, double vit)
         {
+            kplus = kp;
+            kmoins = km;
             vitesse = vit;
             map = new Case[l][];
             pas = p;

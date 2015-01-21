@@ -41,7 +41,7 @@ namespace WpfApplication1
             {
                 
                 int direction =Grille.r.Next() % 4;
-                Grille.bouger(direction, this);
+                        Grille.bouger(direction, this);
                 if (porte == null)
                 {
                     //reflechir si on prend ou pas
@@ -49,16 +49,17 @@ namespace WpfApplication1
                     {
                         for (int j = -1; j < 2; j++)
                         {
-                            if (x + i >= 0 && x + i < Grille.map.Length && y + j >= 0 && y + y < Grille.map[x].Length &&
+                            if (x + i >= 0 && x + i < Grille.map.Length && y + j >= 0 && y + j < Grille.map[x].Length &&
                                 Grille.map[x + i][y + j].contenu != null &&
                                 !Grille.map[x + i][y + j].contenu.affichage().Contains("Agent"))
                             {
                                 //on regarde si on prend ou pas
-                                double probaprise = 0.5;
+                                double probaprise = (Grille.kplus/Math.Pow(Grille.kplus +historique.Where(x1 => x1.Equals(Grille.map[x + i][y + j].contenu.affichage())).Count() / 10, 2));
                                 double chance = (double) Grille.r.Next(1000)/(double) 1000;
                                 if (chance < probaprise)
                                 {
                                     porte = Grille.map[x + i][y + j].contenu;
+                                    Grille.map[x + i][y + j].contenu = null;
                                     break;
                                 }
                             }
@@ -71,7 +72,44 @@ namespace WpfApplication1
                     if(historique.Count > 10)
                         historique.RemoveAt(0);
                 }
-                System.Threading.Thread.Sleep((int)(1000/Grille.vitesse));
+                else
+                {
+                    double freq = 0;
+                    int xlibre = -1, ylibre = -1;
+                    for (int i = -1; i < 2; i++)
+                    {
+                        for (int j = -1; j < 2; j++)
+                        {
+                            if (x + i >= 0 && x + i < Grille.map.Length && y + j >= 0 && y + j < Grille.map[x].Length &&
+                                Grille.map[x + i][y + j].contenu != null &&
+                                Grille.map[x + i][y + j].contenu.affichage() == porte.affichage())
+                            {
+                                freq++;
+                            }
+                            else if (x + i >= 0 && x + i < Grille.map.Length && y + j >= 0 && y + j < Grille.map[x].Length &&
+                                Grille.map[x + i][y + j].contenu == null)
+                            {
+                                if (xlibre == -1)
+                                {
+                                    xlibre = x + i;
+                                    ylibre = y + j;
+                                }
+                            }
+                        }
+                    }
+                    freq /= 8;
+                    if (xlibre != -1)
+                    {
+                        double probaprise = Math.Pow((freq)/(Grille.kmoins + freq), 2);
+                        double chance = (double)Grille.r.Next(1000) / (double)1000;
+                        if (chance < probaprise)
+                        {
+                            Grille.map[xlibre][ylibre].contenu = porte;
+                            porte = null;
+                        }
+                    }
+                }
+                System.Threading.Thread.Sleep((int)(60));
             }
         }
     }
