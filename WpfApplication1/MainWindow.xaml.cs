@@ -23,11 +23,9 @@ namespace WpfApplication1
         public MainWindow()
         {
             InitializeComponent();
-<<<<<<< HEAD
-            panel.Children.Add(new Grille(50, 50, 200, 200, 40, 0.1, 0.3, 1,1000));
-=======
+
             panel.Children.Add(new Grille(100, 100, 200, 200, 20, 0.1, 0.3, 1,1000));
->>>>>>> 95eaffdabd0e5abaafdb1f7433823a401342a754
+
         }
     }
 }
