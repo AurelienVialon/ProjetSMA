@@ -49,17 +49,17 @@ namespace WpfApplication1
                     {
                         for (int j = -1; j < 2; j++)
                         {
-                            if (x + i >= 0 && x + i < Grille.map.Length && y + j >= 0 && y + j < Grille.map[x].Length &&
-                                Grille.map[x + i][y + j].contenu != null &&
-                                !Grille.map[x + i][y + j].contenu.affichage().Contains("Agent"))
+                            if (x + i >= 0 && x + i < Grille.getMap().Length && y + j >= 0 && y + j < Grille.getMap()[x].Length &&
+                                Grille.getMap()[x + i][y + j].contenu != null &&
+                                !Grille.getMap()[x + i][y + j].contenu.affichage().Contains("Agent"))
                             {
                                 //on regarde si on prend ou pas
-                                double probaprise = (Grille.kplus/Math.Pow(Grille.kplus +historique.Where(x1 => x1.Equals(Grille.map[x + i][y + j].contenu.affichage())).Count() / 10, 2));
+                                double probaprise = (Grille.kplus/Math.Pow(Grille.kplus +historique.Where(x1 => x1.Equals(Grille.getMap()[x + i][y + j].contenu.affichage())).Count() / 20, 2));
                                 double chance = (double) Grille.r.Next(1000)/(double) 1000;
                                 if (chance < probaprise)
                                 {
-                                    porte = Grille.map[x + i][y + j].contenu;
-                                    Grille.map[x + i][y + j].contenu = null;
+                                    porte = Grille.getMap()[x + i][y + j].contenu;
+                                    Grille.getMap()[x + i][y + j].contenu = null;
                                     break;
                                 }
                             }
@@ -69,6 +69,11 @@ namespace WpfApplication1
                     }
                     if (porte != null)
                         historique.Add(porte.affichage()[0]);
+                    else
+                    {
+                        historique.Add('0');
+                        
+                    }
                     if(historique.Count > 10)
                         historique.RemoveAt(0);
                 }
@@ -80,14 +85,14 @@ namespace WpfApplication1
                     {
                         for (int j = -1; j < 2; j++)
                         {
-                            if (x + i >= 0 && x + i < Grille.map.Length && y + j >= 0 && y + j < Grille.map[x].Length &&
-                                Grille.map[x + i][y + j].contenu != null &&
-                                Grille.map[x + i][y + j].contenu.affichage() == porte.affichage())
+                            if (x + i >= 0 && x + i < Grille.getMap().Length && y + j >= 0 && y + j < Grille.getMap()[x].Length &&
+                                Grille.getMap()[x + i][y + j].contenu != null &&
+                                Grille.getMap()[x + i][y + j].contenu.affichage() == porte.affichage())
                             {
                                 freq++;
                             }
-                            else if (x + i >= 0 && x + i < Grille.map.Length && y + j >= 0 && y + j < Grille.map[x].Length &&
-                                Grille.map[x + i][y + j].contenu == null)
+                            else if (x + i >= 0 && x + i < Grille.getMap().Length && y + j >= 0 && y + j < Grille.getMap()[x].Length &&
+                                Grille.getMap()[x + i][y + j].contenu == null)
                             {
                                 if (xlibre == -1)
                                 {
@@ -104,7 +109,7 @@ namespace WpfApplication1
                         double chance = (double)Grille.r.Next(1000) / (double)1000;
                         if (chance < probaprise)
                         {
-                            Grille.map[xlibre][ylibre].contenu = porte;
+                            Grille.getMap()[xlibre][ylibre].contenu = porte;
                             porte = null;
                         }
                     }

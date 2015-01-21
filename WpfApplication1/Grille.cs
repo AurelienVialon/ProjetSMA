@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -10,7 +11,7 @@ namespace WpfApplication1
     class Grille : Grid
     {
         private int hauteur, largeur;
-        public static Case[][] map;
+        private static Case[][] map;
         public static int pas;
         public static double vitesse;
         public static double kplus, kmoins;
@@ -89,6 +90,12 @@ namespace WpfApplication1
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public static Case[][] getMap()
+        {
+            return map;
+        }
+
         public static void bouger(int direction, Agent a) 
         {
             // 0 gauche, 1 haut, 2 droite, 3 bas
@@ -98,41 +105,41 @@ namespace WpfApplication1
                 {
                     case 0:
                         //gauche
-                        if ((a.x - pas) >= 0 && map[a.x - pas][a.y].contenu == null)
+                        if ((a.x - pas) >= 0 && getMap()[a.x - pas][a.y].contenu == null)
                         {
 
-                            map[a.x - pas][a.y].contenu = a;
-                            map[a.x][a.y].contenu = null;
+                            getMap()[a.x - pas][a.y].contenu = a;
+                            getMap()[a.x][a.y].contenu = null;
                             a.x = a.x - pas;
                         }
                         break;
                     case 1:
                         //gauche
-                        if ((a.y - pas) >= 0 && map[a.x][a.y-pas].contenu == null)
+                        if ((a.y - pas) >= 0 && getMap()[a.x][a.y - pas].contenu == null)
                         {
 
-                            map[a.x][a.y-pas].contenu = a;
-                            map[a.x][a.y].contenu = null;
+                            getMap()[a.x][a.y - pas].contenu = a;
+                            getMap()[a.x][a.y].contenu = null;
                             a.y = a.y - pas;
                         }
                         break;
                     case 2:
                         //gauche
-                        if ((a.x + pas) < map.Length && map[a.x + pas][a.y].contenu == null)
+                        if ((a.x + pas) < getMap().Length && getMap()[a.x + pas][a.y].contenu == null)
                         {
 
-                            map[a.x + pas][a.y].contenu = a;
-                            map[a.x][a.y].contenu = null;
+                            getMap()[a.x + pas][a.y].contenu = a;
+                            getMap()[a.x][a.y].contenu = null;
                             a.x = a.x + pas;
                         }
                         break;
                     case 3:
                         //gauche
-                        if ((a.y + pas) < map[a.x].Length && map[a.x][a.y + pas].contenu == null)
+                        if ((a.y + pas) < getMap()[a.x].Length && getMap()[a.x][a.y + pas].contenu == null)
                         {
 
-                            map[a.x][a.y + pas].contenu = a;
-                            map[a.x][a.y].contenu = null;
+                            getMap()[a.x][a.y + pas].contenu = a;
+                            getMap()[a.x][a.y].contenu = null;
                             a.y = a.y + pas;
                         }
                         break;
