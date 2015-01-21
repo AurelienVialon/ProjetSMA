@@ -11,3 +11,4 @@ C:\Users\lien6_000\Desktop\Projet Bio-SMA\sma-bio-inspir\WpfApplication1\obj\Deb
 C:\Users\lien6_000\Desktop\Projet Bio-SMA\sma-bio-inspir\WpfApplication1\obj\Debug\WpfApplication1.csproj.GenerateResource.Cache
 C:\Users\lien6_000\Desktop\Projet Bio-SMA\sma-bio-inspir\WpfApplication1\obj\Debug\WpfApplication1.exe
 C:\Users\lien6_000\Desktop\Projet Bio-SMA\sma-bio-inspir\WpfApplication1\obj\Debug\WpfApplication1.pdb
+C:\Users\lien6_000\Desktop\Projet Bio-SMA\sma-bio-inspir\WpfApplication1\obj\Debug\WpfApplication1.csprojResolveAssemblyReference.cache
