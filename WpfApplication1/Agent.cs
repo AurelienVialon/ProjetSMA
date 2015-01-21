@@ -54,7 +54,7 @@ namespace WpfApplication1
                                 !Grille.map[x + i][y + j].contenu.affichage().Contains("Agent"))
                             {
                                 //on regarde si on prend ou pas
-                                double probaprise = (Grille.kplus/Math.Pow(Grille.kplus +historique.Where(x1 => x1.Equals(Grille.map[x + i][y + j].contenu.affichage())).Count() / 10, 2));
+                                double probaprise = (Grille.kplus/Math.Pow(Grille.kplus +historique.Where(x1 => x1.Equals(Grille.map[x + i][y + j].contenu.affichage())).Count() / 20, 2));
                                 double chance = (double) Grille.r.Next(1000)/(double) 1000;
                                 if (chance < probaprise)
                                 {
@@ -109,7 +109,7 @@ namespace WpfApplication1
                         }
                     }
                 }
-                System.Threading.Thread.Sleep((int)(60));
+                System.Threading.Thread.Sleep((int)(10));
             }
         }
     }

@@ -16,13 +16,14 @@ namespace WpfApplication1
         {
             get { return _contenu; }
             set
-            {
+            {  
+                _contenu = value;
                 Dispatcher.Invoke(
                     new Action(() =>
                     {
                         Content = value != null ? value.affichage() : "";
                     }));
-                        _contenu = value;
+                      
                         if (value != null)
                         {
                             Dispatcher.Invoke(
